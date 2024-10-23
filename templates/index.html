@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <style>
+        .tabla-container {
+            margin: 0 auto; /* Centra el contenedor de la tabla */
+            text-align: left; /* Alinea el texto a la izquierda dentro del contenedor */
+            width: fit-content; /* Hace que el contenedor se ajuste al tamaño de la tabla */
+        }
+        .nuevo-producto {
+            margin-bottom: 6pt; /* Espacio de 6 puntos debajo del botón */
+            display: inline-block; /* Asegura que el botón se mantenga como un bloque en línea */
+        }
+        h1 {
+            color: blue; /* Color azul para el título */
+            text-align: center; /* Centra el título */
+        }
+    </style>
+</head>
+<body>
+    <div style="border: 2px solid red; padding: 10px; margin: 0 auto 20px auto; width: fit-content; text-align: center;">
+        <p style="color: red;">SEGUNDO PARCIAL TEM-742</p>
+        <p>Nombre: Esther Quispe Yujra</p>
+        <p>Carnet: 6786814</p>
+    </div>
+
+    <h1>Gestión de productos</h1>
+
+    <!-- Botón "nuevo producto" alineado a la izquierda -->
+    <div class="tabla-container">
+        <a href="{{url_for('nuevo')}}" class="nuevo-producto">Nuevo producto</a>
+
+        <!-- Tabla centrada -->
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Fecha_vencimiento</th>
+                <th>Categoria</th>
+                <th></th>
+                <th></th>            
+            </tr>
+           {% for item in productos %} 
+            <tr>
+                <td>{{item.id}}</td>
+                <td>{{item.descripcion}}</td>
+                <td>{{item.cantidad}}</td>
+                <td>{{item.precio}}</td>
+                <td>{{item.fecha_vencimiento}}</td>
+                <td>{{item.categoria}}</td>
+                <td><a href="{{url_for('editar',id=item.id)}}">Editar</a></td>
+                <td>
+                    <form action="{{url_for('eliminar',id=item.id)}}" method="POST">
+                        <input type="submit" value="eliminar"> 
+                    </form>
+                </td>            
+            </tr>
+            {% endfor %} 
+        </table>
+    </div>
+</body>
+</html>
